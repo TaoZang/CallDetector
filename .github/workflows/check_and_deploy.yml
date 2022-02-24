@@ -1,9 +1,10 @@
 name: Test and deploy
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
+#  push:
+#    tags:
+#      - 'v*'
 
 jobs:
   build:
@@ -66,7 +67,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./app-debug-${{steps.prepare_release.outputs.tag_name}}.apk
-          asset_name: app-debug-${{steps.prepare_release.outputs.tag_name}}.apk
+          asset_path: ./release.apk
+          asset_name: release.apk
           asset_content_type: application/vnd.android.package-archive
 
