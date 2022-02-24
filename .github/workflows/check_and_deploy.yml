@@ -1,7 +1,6 @@
 name: Test and deploy
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - 'v*'
@@ -29,5 +28,4 @@ jobs:
       - name: Upload Asset
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v1.0.0
-          files: app/build/outputs/apk/release/app-release-unsigned-signed.apk
+          files: app/build/outputs/apk/release/release-signed.apk
