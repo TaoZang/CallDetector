@@ -6,17 +6,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.telephony.TelephonyManager
-import android.view.View
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
 
 class MainActivity : AppCompatActivity() {
-
     private val permissions = arrayOf(
         Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.READ_CALL_LOG)

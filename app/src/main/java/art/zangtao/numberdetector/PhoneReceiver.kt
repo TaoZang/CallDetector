@@ -11,10 +11,10 @@ class PhoneReceiver: BroadcastReceiver() {
             val state = intent.getStringExtra("state")
             if (TelephonyManager.EXTRA_STATE_RINGING == state) {
                 intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)?.let { number ->
-                    FloatingPresenter.getInstance(context).present(number)
+                    (context.applicationContext as MyApplication).handleIncoming(number)
                 }
             } else {
-                FloatingPresenter.getInstance(context).dismiss()
+                (context.applicationContext as MyApplication).handleIdle()
             }
         }
     }

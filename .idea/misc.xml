@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/popup_dialog.xml" value="0.38645833333333335" />
+        <entry key="app/src/main/res/layout/popup_window.xml" value="0.1" />
       </map>
     </option>
   </component>
