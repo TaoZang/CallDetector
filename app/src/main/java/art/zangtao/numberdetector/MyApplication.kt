@@ -2,11 +2,8 @@ package art.zangtao.numberdetector
 
 import android.app.Application
 import android.content.Context
-import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Build
-import android.telecom.Call
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -38,8 +35,9 @@ class MyApplication: Application() {
     private val jsHook = """
         const root = document.getElementsByTagName('html')[0];
         new MutationObserver(function() {
-            window.HtmlHandler.handleHtml('<html>' + root.innerHTML + '<html>');
+            window.HtmlHandler.handleHtml('<html>' + root.innerHTML + '</html>');
         }).observe(root, {subtree: true, childList: true});
+        window.HtmlHandler.handleHtml('<html>' + root.innerHTML + '</html>');
     """.trimIndent()
 
     inner class JsBridge {
@@ -81,8 +79,7 @@ class MyApplication: Application() {
             addJavascriptInterface(JsBridge(), "HtmlHandler")
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-                    view?.loadUrl(request?.url.toString())
-                    return super.shouldOverrideUrlLoading(view, request)
+                    return false
                 }
 
                 override fun onPageFinished(view: WebView?, url: String?) {
@@ -101,6 +98,10 @@ class MyApplication: Application() {
     }
 
     private fun showFloatingView(callInfo: CallInfo) {
+        if (presentingView != null) {
+            return
+        }
+
         val view = LayoutInflater.from(this).inflate(R.layout.popup_window, null).apply {
             val cardView = findViewById<CardView>(R.id.card_view)
             val titleText = findViewById<TextView>(R.id.title)
@@ -133,7 +134,6 @@ class MyApplication: Application() {
             height = WindowManager.LayoutParams.WRAP_CONTENT
         }
 
-        presentingView?.let { wm?.removeView(it) }
         wm?.addView(view, lp)
         presentingView = view
     }

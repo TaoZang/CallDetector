@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Number Detector</string>
+    <string name="app_name">Call Detector</string>
     <string name="open_permission">开启授权</string>
     <string name="go_to_settings">开启悬浮窗</string>
     <string name="authorized">已开启</string>

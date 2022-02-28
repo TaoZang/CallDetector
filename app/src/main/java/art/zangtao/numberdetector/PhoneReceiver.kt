@@ -7,14 +7,14 @@ import android.telephony.TelephonyManager
 
 class PhoneReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (context != null && intent?.action == "android.intent.action.PHONE_STATE") {
-            val state = intent.getStringExtra("state")
-            if (TelephonyManager.EXTRA_STATE_RINGING == state) {
-                intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)?.let { number ->
+        if (context != null && intent?.action == TelephonyManager.ACTION_PHONE_STATE_CHANGED) {
+            val number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+            if (number != null) {
+                if (TelephonyManager.EXTRA_STATE_RINGING == intent.getStringExtra(TelephonyManager.EXTRA_STATE)) {
                     (context.applicationContext as MyApplication).handleIncoming(number)
+                } else {
+                    (context.applicationContext as MyApplication).handleIdle()
                 }
-            } else {
-                (context.applicationContext as MyApplication).handleIdle()
             }
         }
     }
